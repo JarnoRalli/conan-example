@@ -1,0 +1,13 @@
+include(CMakeFindDependencyMacro)
+
+@PACKAGE_INIT@
+
+set_and_check(Library_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set_and_check(Library_LIB_DIR "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
+
+get_filename_component(Library_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+if(NOT TARGET Library::Library)
+    message(STATUS "Loading targets")
+    include("${StoryBoard_CMAKE_DIR}/LibraryTargets.cmake")
+endif()
