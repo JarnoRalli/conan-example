@@ -5,5 +5,7 @@ opencv/4.3.0@conan/stable
 
 [generators]
 cmake_paths
-#cmake_find_package
 
+[options]
+opencv:contrib=True
+#opencv:cuda=True

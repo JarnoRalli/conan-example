@@ -7,7 +7,10 @@ set_and_check(Library_LIB_DIR "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
 
 get_filename_component(Library_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 
+find_dependency(OpenCV 4.3.0 REQUIRED core)
+find_dependency(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
+
 if(NOT TARGET Library::Library)
     message(STATUS "Loading targets")
-    include("${StoryBoard_CMAKE_DIR}/LibraryTargets.cmake")
+    include("${Library_CMAKE_DIR}/LibraryTargets.cmake")
 endif()

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 
 message(STATUS "-------")
 message(STATUS "Library")
@@ -45,13 +45,13 @@ list(   APPEND
 
 add_library (Library)
 
-# This is needed for the Conan package in Windows
+# This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
 set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(OpenCV REQUIRED core)
+find_package(OpenCV 4.3.0 REQUIRED core)
 
-# This is needed for the Conan package in Windows
+# This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
 set(Boost_USE_STATIC_LIBS ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(Boost 1.73.0 REQUIRED COMPONENTS system)
+find_package(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
 
 # Add directories to the target
 # PRIVATE and PUBLIC items will populate the INCLUDE_DIRECTORIES property of target
@@ -64,12 +64,12 @@ target_include_directories (Library
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Link against OpenCV
+# Link against 3rd party libraries
 target_link_libraries (Library
     PUBLIC
         opencv_core
     PRIVATE
-        Boost::system
+        Boost::filesystem
 )
 
 # Add sources to the library
