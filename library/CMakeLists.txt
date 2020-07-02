@@ -73,7 +73,7 @@ target_link_libraries (Library
     PUBLIC
         opencv::opencv
     PRIVATE
-        Boost::Boost #Broken in Windows https://github.com/conan-io/conan-center-index/issues/1245
+        Boost::Boost #Broken in Windows/Linux https://github.com/conan-io/conan-center-index/issues/1245, https://github.com/bincrafters/community/issues/563
 )
 
 # Add sources to the library
