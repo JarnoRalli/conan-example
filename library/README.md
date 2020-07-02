@@ -16,16 +16,13 @@ Install the missing packages using Conan. This installs the required files into 
 ```bash
 cd library
 mkdir build && cd build
-conan install ../conan/ --build missing
+conan install ../../conan/ --build missing
 ```
 
 ## Run CMake
 
 Run cmake (preferrably the GUI version), click on **Configure** and set the **generator** so that it matches the one in the Conan default profile. Set the **Optional platform for generator** so that
-it matches the one in the Conan default profile, and choose **Specify toolchain file for cross-compiling**, and click **Next**. After this, choose the **conan_paths.cmake** in the
-/build directory as the toolchain file.
-
-![image](cmake_configuration.png)
+it matches the one in the Conan default profile and click **Next**.
 
 If the configuration phase was completed successfully, set the **cmake_install_prefix** to the directory where you want to install the library and click **Configure** again. 
 If everything has been configured correctly, click **Generate** (and **Open Project** if in Windows).
