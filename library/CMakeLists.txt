@@ -5,6 +5,7 @@ message(STATUS "Library")
 message(STATUS "-------")
 
 project(Library VERSION 1.0 LANGUAGES CXX)
+set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 # Organize project into folders. Improves readability in IDEs that support this
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -45,13 +46,16 @@ list(   APPEND
 
 add_library (Library)
 
-# This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
-set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(OpenCV 4.3.0 REQUIRED core)
+# # This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
+# set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
+# find_package(OpenCV 4.3.0 REQUIRED core)
 
-# This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
-set(Boost_USE_STATIC_LIBS ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
+# # This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
+# set(Boost_USE_STATIC_LIBS ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
+# find_package(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
+
+find_package(opencv 4.3.0 REQUIRED)
+find_package(Boost 1.73.0 REQUIRED filesystem)
 
 # Add directories to the target
 # PRIVATE and PUBLIC items will populate the INCLUDE_DIRECTORIES property of target
@@ -67,9 +71,9 @@ target_include_directories (Library
 # Link against 3rd party libraries
 target_link_libraries (Library
     PUBLIC
-        opencv_core
+        opencv::opencv
     PRIVATE
-        Boost::filesystem
+        Boost::Boost #Broken in Windows https://github.com/conan-io/conan-center-index/issues/1245
 )
 
 # Add sources to the library
@@ -137,6 +141,11 @@ install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/LibraryConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Library
 )
+
+# Install all the Find-modules
+file(GLOB FIND_MODULES "${CMAKE_CURRENT_BINARY_DIR}/Find*.cmake")
+message(STATUS "--- ${FIND_MODULES} ---")
+file(COPY ${FIND_MODULES} DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Library)
 
 # Add tests
 include(CTest)
