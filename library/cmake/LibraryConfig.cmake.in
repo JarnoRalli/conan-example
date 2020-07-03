@@ -7,8 +7,12 @@ set_and_check(Library_LIB_DIR "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
 
 get_filename_component(Library_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 
-find_dependency(OpenCV 4.3.0 REQUIRED core)
-find_dependency(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
+# These need to be set/unset as per what has been defined in the Library.
+set(OpenCV_STATIC "@OpenCV_STATIC@" CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
+set(Boost_USE_STATIC_LIBS "@Boost_USE_STATIC_LIBS@" CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
+
+find_dependency(OpenCV)
+find_dependency(Boost)
 
 if(NOT TARGET Library::Library)
     message(STATUS "Loading targets")
