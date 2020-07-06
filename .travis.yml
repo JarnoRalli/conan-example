@@ -1,0 +1,26 @@
+#--- System ---
+os: linux
+language: python
+python: "3.7"
+dist: xenial
+compiler:
+  - gcc
+
+#--- Install ---
+install:
+  - pip install conan
+  - conan user # Automatic detection of your arch, compiler, etc.
+
+#--- Script ---
+script:
+  - cd library
+  - mkdir build
+  - cd build
+  - mkdir install
+  - conan install ../conan --build missing
+# Call your build system
+  - cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=./conan_paths.cmake -DCMAKE_INSTALL_PREFIX=./install
+  - cmake --build .
+  - cmake --install .
+# Run your tests
+  - ctest .
