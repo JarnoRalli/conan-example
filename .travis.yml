@@ -9,7 +9,8 @@ compiler:
 #--- Install ---
 install:
   - pip install conan
-  - conan user # Automatic detection of your arch, compiler, etc.
+#  - conan user # Automatic detection of your arch, compiler, etc.
+  - conan profile new default --detect
   - conan profile update settings.compiler.libcxx=libstdc++11 default
 
 #--- Script ---
@@ -20,7 +21,7 @@ script:
   - mkdir install
   - conan install ../../conan --build missing
 # Call your build system
-  - cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=./conan_paths.cmake -DCMAKE_INSTALL_PREFIX=./install
+  - cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=./install
   - cmake --build .
   - cmake --install .
 # Run your tests
