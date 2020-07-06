@@ -33,8 +33,8 @@ script:
   - mkdir install
   - conan install ../../conan --build missing
 # Call your build system
-  - cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=./install
-  - cmake --build .
-  - cmake --install .
+  - /usr/bin/cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=./install
+  - /usr/bin/cmake --build .
+  - /usr/bin/cmake --install .
 # Run your tests
   - ctest .
