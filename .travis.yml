@@ -14,11 +14,7 @@ before_install:
   - sudo apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ bionic main'
   - sudo apt-get -q update
   - sudo apt-get -y install cmake
-  - cmake --version
-  - which cmake
-  - env | grep PATH
-  - dpkg -L cmake
-  
+
 #--- Install ---
 install:
   - pip install conan
