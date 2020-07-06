@@ -1,6 +1,10 @@
 # conan-example
 Example of using Conan to link against OpenCV and some other 3rd party libraries
 
+# Build Status
+
+[![Build Status](https://travis-ci.org/JarnoRalli/conan-example.svg?branch=cmake)](https://travis-ci.org/JarnoRalli/conan-example)
+
 ## Conan Generators
 This example tests three different Conan generators:
 
