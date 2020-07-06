@@ -1,5 +1,5 @@
 # conan-example
-Example of using Conan to link against OpenCV and some other 3rd party libraries
+An example of using Conan to link against OpenCV and some other 3rd party libraries
 
 ## Conan Generators
 This example tests three different Conan generators:

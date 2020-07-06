@@ -10,6 +10,12 @@ Configure Conan, i.e. generate a default profile. This is stored in a directory 
 conan profile new default --detect  # Generates default profile detecting the system compiler
 ```
 
+In Linux/Ubuntu, you need to tell Conan to use a later version of the **libcxx**, otherwise it will use an older ABI for compatibility reasons.
+
+```bash
+conan profile update settings.compiler.libcxx=libstdc++11 default # Sets libcxx to C++11 ABI
+```
+
 #### Installing Conan packages
 Install the missing packages using Conan. This installs the required files into the build directory
 
@@ -21,9 +27,9 @@ conan install ../conan/ --build missing
 
 ## Run CMake
 
-Run cmake (preferrably the GUI version), click on **Configure** and set the **generator** so that it matches the one in the Conan default profile. Set the **Optional platform for generator** so that
-it matches the one in the Conan default profile, and choose **Specify toolchain file for cross-compiling**, and click **Next**. After this, choose the **conan_paths.cmake** in the
-/build directory as the toolchain file.
+Run cmake (preferrably the GUI version), click on **Configure** and set the **generator** so that it matches the one in the Conan default profile. Additionally, in Windows, set the **Optional platform for generator** so that
+it matches the one in the Conan default profile (.e.g 32/64-bit), and choose **Specify toolchain file for cross-compiling**, and click **Next**. After this, choose the **conan_paths.cmake** in the
+/build directory as the toolchain file. Following figure shows how the configuration looks like in Windows.
 
 ![image](cmake_configuration.png)
 
