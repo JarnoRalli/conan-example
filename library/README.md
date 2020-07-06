@@ -16,6 +16,12 @@ In Linux/Ubuntu, you need to tell Conan to use a later version of the **libcxx**
 conan profile update settings.compiler.libcxx=libstdc++11 default # Sets libcxx to C++11 ABI
 ```
 
+Add support OpenCV packages required by contrib
+
+```bash
+conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+```
+
 #### Installing Conan packages
 Install the missing packages using Conan. This installs the required files into the build directory
 
