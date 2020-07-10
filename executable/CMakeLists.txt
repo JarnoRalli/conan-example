@@ -13,8 +13,8 @@ message(STATUS "----------")
 project (Executable VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-#find_package(opencv 4.3.0 REQUIRED core)
-#find_package(Boost 1.73.0 REQUIRED filesystem)
+find_package(opencv 4.3.0 REQUIRED)
+find_package(Boost 1.73.0 REQUIRED)
 
 # Find the package Library
 find_package(Library 1.0 REQUIRED)

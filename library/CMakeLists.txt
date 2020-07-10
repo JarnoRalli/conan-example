@@ -47,7 +47,13 @@ list(   APPEND
 add_library (Library)
 
 find_package(opencv 4.3.0 REQUIRED)
-#find_package(Boost 1.73.0 REQUIRED filesystem)
+find_package(Boost 1.73.0 REQUIRED)
+
+# Filter out Boost_libboost_unit_test_framework as it doesn't play nice with GTest
+# Soon this won't be necessary https://github.com/conan-io/conan/issues/6718
+get_target_property(TARGET_LIBRARIES Boost::Boost INTERFACE_LINK_LIBRARIES)
+list(FILTER TARGET_LIBRARIES EXCLUDE REGEX ".*unit_test_framework.*")
+set_target_properties( Boost::Boost PROPERTIES INTERFACE_LINK_LIBRARIES "${TARGET_LIBRARIES}")
 
 # Add directories to the target
 # PRIVATE and PUBLIC items will populate the INCLUDE_DIRECTORIES property of target
@@ -64,8 +70,8 @@ target_include_directories (Library
 target_link_libraries (Library
     PUBLIC
         opencv::opencv
-#    PRIVATE
-#        Boost::Boost #Broken in Windows/Linux https://github.com/conan-io/conan-center-index/issues/1245, https://github.com/bincrafters/community/issues/563
+   PRIVATE
+       Boost::Boost
 )
 
 # Add sources to the library
