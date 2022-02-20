@@ -91,7 +91,6 @@ jobs:
       - name: Library - run tests
         shell: bash
         run: |
-#          export LD_LIBRARY_PATH=$(pwd)/build/lib:$LD_LIBRARY_PATH
           cd library
           cd build
           ctest --verbose -C ${{ env.oclus_build_type }}
