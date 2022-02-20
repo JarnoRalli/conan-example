@@ -1,6 +1,6 @@
-find_package(GTest)
+find_package(GTest REQUIRED CONFIG)
 
-add_executable( test_library src/test_library.cpp )
+add_executable(test_library src/test_library.cpp )
 
 target_link_libraries(
     test_library
