@@ -44,7 +44,8 @@ jobs:
             git-lfs \
             libgtk2.0-dev \
             libva-dev \
-            libvdpau-dev
+            libvdpau-dev \
+            sudo
 
           pip3 install wheel setuptools
           pip3 install conan mako
