@@ -6,11 +6,25 @@ message(STATUS "-------")
 
 project(Library VERSION 1.0 LANGUAGES CXX)
 
+# Make Conan quiet
+set(CONAN_CMAKE_SILENT_OUTPUT TRUE)
+
 # Organize project into folders. Improves readability in IDEs that support this
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # To distinguish between 'release' and 'debug' builds
 set(CMAKE_DEBUG_POSTFIX "_d" CACHE STRING "File prefix for debug builds")
+
+# Set the paths so that Conan generated find* packages are found
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
+
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to 'Release' as none was specified.")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
 
 # ------------------------------------------------------------------------
 # Generate documentation if Doxygen is found (requires CMake 3.3 to work)
@@ -46,12 +60,8 @@ list(   APPEND
 add_library (Library)
 
 # This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
-set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(OpenCV 4.3.0 REQUIRED core)
-
-# This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
-set(Boost_USE_STATIC_LIBS ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(Boost 1.73.0 REQUIRED COMPONENTS filesystem)
+#set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
+find_package(OpenCV 4.5.3 EXACT REQUIRED CONFIG)
 
 # Add directories to the target
 # PRIVATE and PUBLIC items will populate the INCLUDE_DIRECTORIES property of target
@@ -67,9 +77,7 @@ target_include_directories (Library
 # Link against 3rd party libraries
 target_link_libraries (Library
     PUBLIC
-        opencv_core
-    PRIVATE
-        Boost::filesystem
+        opencv::opencv
 )
 
 # Add sources to the library
