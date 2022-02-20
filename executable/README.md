@@ -1,7 +1,21 @@
 # Executable
 
-This is the executable that links against the library. You first need to build and install the library.
-After this, when configuring the executable in CMake, the variable ***Library_DIR*** needs to be set so that it points to the directory
-where the file ***LibraryConfig.cmake*** resides, inside the directory where the library was installed. Also, the toolchain file (CMake)
-needs to point to the same, or equivalent, toolchain file, named ***conan_paths.cmake***, that was used for building the library. Normally
-this file is in the ***build*** directory.
+This is an executable that links against the library we built previously. You can build the executable as follows:
+
+```bash
+cd executable
+mkdir build
+cd build
+conan install ../conan --build=missing
+cmake-gui ..
+```
+
+When you execute `cmake-gui ..`, you will get an error message saying that the `LibraryConfig.cmake` is not found. This is due to the
+fact that CMake cannot, by default, find the directory where you installed the library. You need to set the CMake variable `Library_DIR` 
+so that it points to `<path-to-the-installed-library>/lib/cmake/Library`. This is the directory where the file `LibraryConfig.cmake` resides.
+After that you can build the executable by running the following from the `build` directory:
+
+```bash
+make
+```
+

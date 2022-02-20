@@ -11,8 +11,8 @@ get_filename_component(Library_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(OpenCV_STATIC "@OpenCV_STATIC@" CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
 set(Boost_USE_STATIC_LIBS "@Boost_USE_STATIC_LIBS@" CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
 
+# Forwards the correct parameters for QUIET and REQUIRED
 find_dependency(OpenCV)
-find_dependency(Boost)
 
 if(NOT TARGET Library::Library)
     message(STATUS "Loading targets")
