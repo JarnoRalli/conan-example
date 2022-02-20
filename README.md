@@ -3,7 +3,7 @@ An example of using Conan to link against OpenCV and some other 3rd party librar
 
 # Build Status
 
-[![Build Status](https://travis-ci.org/JarnoRalli/conan-example.svg?branch=master)](https://travis-ci.org/JarnoRalli/conan-example)
+[![Build and Test](https://github.com/JarnoRalli/conan-example/actions/workflows/build.yml/badge.svg)](https://github.com/JarnoRalli/conan-example/actions/workflows/build.yml)
 
 ## Conan Generators
 This example tests three different Conan generators:

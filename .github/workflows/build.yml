@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   #---LINUX BUILD JOB(S)---
@@ -41,7 +42,10 @@ jobs:
             python3-pip \
             git \
             git-lfs \
-            libgtk2.0-dev
+            libgtk2.0-dev \
+            libva-dev \
+            libvdpau-dev \
+            sudo
 
           pip3 install wheel setuptools
           pip3 install conan mako
@@ -50,7 +54,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Conan and pull packages
+      - name: Library - setup Conan and pull packages
         shell: bash
         run : |
           conan profile new default --detect
@@ -63,7 +67,7 @@ jobs:
           cd build
           conan install ../conan --build=missing -s build_type=${{ env.oclus_build_type }}
 
-      - name: Configure CMake
+      - name: Library - configure CMake
         shell: bash
         run: |
           export CC=${{ matrix.config.cc }}
@@ -79,17 +83,17 @@ jobs:
             -GNinja \
             ${{ matrix.config.cmake_configure_options }}
 
-      - name: Build
+      - name: Library - build
         shell: bash
         run: |
           cmake --build library/build
 
-#      - name: Run tests
-#        shell: bash
-#        run: |
-#          export LD_LIBRARY_PATH=$(pwd)/build/lib:$LD_LIBRARY_PATH
-#          cd build
-#          ctest --verbose -C ${{ env.oclus_build_type }}
+      - name: Library - run tests
+        shell: bash
+        run: |
+          cd library
+          cd build
+          ctest --verbose -C ${{ env.oclus_build_type }}
 
 #  #---WINDOWS BUILD JOB(S)---
 #  windows:
