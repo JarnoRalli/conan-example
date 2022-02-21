@@ -1,9 +1,5 @@
 name: Win64
-on:
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+on: [pull_request, workflow_dispatch]
 
 jobs:
   #---WINDOWS BUILD JOB(S)---
