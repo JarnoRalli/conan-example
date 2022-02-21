@@ -1,0 +1,70 @@
+name: Win64
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  #---WINDOWS BUILD JOB(S)---
+  windows:
+    name: ${{ matrix.config.name }}
+    runs-on: windows-latest
+    env:
+      oclus_build_type: "Release"
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+            name: "Windows MSVC",
+            cc: "cl", cxx: "cl",
+            cmake_configure_options: '-G "Visual Studio 16 2019" -A x64',
+            conan_profile_update: 'conan profile update settings.compiler="Visual Studio" default; conan profile update settings.compiler.version=16 default'
+          }
+
+    steps:
+    
+      #Checks out the repo
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Update environment
+        shell: pwsh
+        run: |
+          pip3 install wheel setuptools
+          pip3 install conan
+
+      - name: Setup Conan and pull packages
+        shell: pwsh
+        run : |
+          conan profile new default --detect --force
+          conan profile update settings.compiler="Visual Studio" default
+          conan profile update settings.compiler.version=16 default
+          conan profile show default
+          conan remote list
+
+          cd library
+          mkdir build
+          cd build
+          conan install ../conan --build=missing -s build_type=${{ env.oclus_build_type }}
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          $env:CC="${{ matrix.config.cc }}"
+          $env:CXX="${{ matrix.config.cxx }}"
+
+          # Configure CMake
+          cd library
+          cd build
+          cmake .. ${{ matrix.config.cmake_configure_options }}
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build library/build --config ${{ env.oclus_build_type }}
+
+      - name: Run tests
+        shell: pwsh
+        run: |
+          cd library
+          cd build
+          ctest --verbose -C ${{ env.oclus_build_type }}
+

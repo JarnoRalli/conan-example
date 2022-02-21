@@ -6,7 +6,7 @@ This is an executable that links against the library we built previously. You ca
 cd executable
 mkdir build
 cd build
-conan install ../conan --build=missing
+conan install ../conan --build=missing -s build_type=Release
 cmake-gui ..
 ```
 
@@ -18,4 +18,6 @@ After that you can build the executable by running the following from the `build
 ```bash
 make
 ```
+
+Again, the build type of the project must match the `build_type` that was used to install the Conan packages.
 
