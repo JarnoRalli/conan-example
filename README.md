@@ -4,7 +4,9 @@ the library, and link an executable against it.
 
 # Build Status
 
-[![Build and Test](https://github.com/JarnoRalli/conan-example/actions/workflows/build.yml/badge.svg)](https://github.com/JarnoRalli/conan-example/actions/workflows/build.yml)
+[![Linux](https://github.com/JarnoRalli/conan-example/actions/workflows/ubuntu_build.yml/badge.svg)](https://github.com/JarnoRalli/conan-example/actions/workflows/ubuntu_build.yml)
+
+[![Win64](https://github.com/JarnoRalli/conan-example/actions/workflows/visual_studio_build.yml/badge.svg)](https://github.com/JarnoRalli/conan-example/actions/workflows/visual_studio_build.yml)
 
 ## Conan Generators
 This example shows how to use Conan
