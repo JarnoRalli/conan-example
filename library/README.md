@@ -22,11 +22,12 @@ Install the missing packages using Conan. This installs the required files into 
 ```bash
 cd library
 mkdir build && cd build
-conan install ../conan --build=missing
+conan install ../conan --build=missing -s build_type=Release
 ```
 
 Unless all of the required packages are found, you might get error messages when installing the Conan packages for the first time. 
 In Linux, you just need to install the missing packages using the package manager. For example, in Ubuntu `sudo apt-get install <name-of-the-package>`.
+When building the project, in any system, the build type of the project must match the `build_type` that was used to install the Conan packages.
 
 ## Run CMake
 
