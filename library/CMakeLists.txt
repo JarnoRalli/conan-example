@@ -61,7 +61,7 @@ add_library (Library)
 
 # This is an example of missing information propagation using cmake_paths generator. This is needed for the Conan package in Windows.
 #set(OpenCV_STATIC ON CACHE BOOL "For Windows: ON = static library/ OFF = dynamic library")
-find_package(OpenCV 4.5.3 EXACT REQUIRED CONFIG)
+find_package(OpenCV REQUIRED CONFIG)
 
 # Add directories to the target
 # PRIVATE and PUBLIC items will populate the INCLUDE_DIRECTORIES property of target
