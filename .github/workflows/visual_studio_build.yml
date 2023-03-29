@@ -5,7 +5,7 @@ jobs:
   #---WINDOWS BUILD JOB(S)---
   windows:
     name: ${{ matrix.config.name }}
-    runs-on: windows-latest
+    runs-on: windows-2019
     env:
       oclus_build_type: "Release"
     strategy:
@@ -29,7 +29,7 @@ jobs:
         shell: pwsh
         run: |
           pip3 install wheel setuptools
-          pip3 install conan
+          pip3 install "conan==1.58.0"
 
       - name: Setup Conan and pull packages
         shell: pwsh
@@ -40,6 +40,9 @@ jobs:
           conan profile show default
           conan remote list
 
+      - name: Install Conan packages
+        shell: pwsh
+        run : |
           cd library
           mkdir build
           cd build

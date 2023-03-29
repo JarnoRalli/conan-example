@@ -37,20 +37,18 @@ jobs:
             python3 \
             python3-pip \
             git \
-            git-lfs \
             libgtk2.0-dev \
             libva-dev \
-            libvdpau-dev \
-            sudo
+            libvdpau-dev
 
           pip3 install wheel setuptools
-          pip3 install conan mako
+          pip3 install 'conan==1.58.0' mako
 
       #Checks out the repo
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Library - setup Conan and pull packages
+      - name: Library - setup Conan
         shell: bash
         run : |
           conan profile new default --detect
@@ -58,6 +56,9 @@ jobs:
           conan profile show default
           conan remote list
 
+      - name: Library - install Conan packages
+        shell: bash
+        run : |
           cd library
           mkdir build
           cd build
